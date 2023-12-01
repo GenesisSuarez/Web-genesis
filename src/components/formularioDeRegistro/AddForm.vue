@@ -282,7 +282,7 @@ const data = reactive({
 const formData = {
   nombreApellido: Joi.string().required(),
   email: Joi.string().email().required(),
-  numeroTelefonico: Joi.number().required(),
+  numeroTelefonico: Joi.number().max(12).required(),
   genero: Joi.string().valid("femenino", "masculino").required(),
   ciudadOrigen: Joi.string().required(),
   ciudadDestino: Joi.string().required(),
@@ -290,7 +290,7 @@ const formData = {
   fechaSalida: Joi.date().iso().optional().allow(""),
   fechaRegreso: Joi.date().iso().optional().allow(""),
   recibirCotizacion: Joi.string().valid("WhatsApp", "Correo Electrónico").required(),
-  description: Joi.string().required(),
+  description: Joi.string().max(100).required(),
   conditional: Joi.boolean().valid(true).required(),
 };
 
