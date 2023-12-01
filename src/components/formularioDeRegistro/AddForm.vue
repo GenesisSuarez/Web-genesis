@@ -364,7 +364,7 @@ function createButton() {
           DateTransaction: formatted_date,
           nombreApellido: data.nombreApellido,
           email: data.email,
-          numeroTelefonico: data.numeroTelefonico,
+          numeroTelefonico: data.numeroTelefonico.toString,
           genero: data.genero,
           ciudadOrigen: data.ciudadOrigen,
           ciudadDestino: data.ciudadDestino,
