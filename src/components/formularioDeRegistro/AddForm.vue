@@ -67,23 +67,31 @@
             for="inputEmail4"
             class="form-label"
             style="display: flex; margin-bottom: 15px"
-            >GENERO</label
+            >Genero</label
           >
+
           <div class="form-check form-check-inline">
             <input
+              v-model="data.genero"
+              :class="{ 'is-invalid': hasError('genero') }"
               class="form-check-input"
-              type="checkbox"
-              id="inlineCheckbox1"
-              value="option1"
+              type="radio"
+              name="genero"
+              id="radioFemenino"
+              value="femenino"
             />
             <label class="form-check-label" for="inlineCheckbox1">femenino</label>
           </div>
+
           <div class="form-check form-check-inline">
             <input
+              v-model="data.genero"
+              :class="{ 'is-invalid': hasError('genero') }"
               class="form-check-input"
-              type="checkbox"
-              id="inlineCheckbox2"
-              value="option2"
+              type="radio"
+              name="genero"
+              id="radioMasculino"
+              value="masculino"
             />
             <label class="form-check-label" for="inlineCheckbox2">masculino</label>
             <div v-if="hasError('genero')" class="invalid-feedback">
@@ -263,7 +271,7 @@ const data = reactive({
   genero: "",
   ciudadOrigen: "",
   ciudadDestino: "",
-  tipoViaje: "",
+  tipoViaje: "Viaje de ida",
   fechaSalida: dateFormat(),
   fechaRegreso: dateFormat(),
   recibirCotizacion: "WhatsApp",
@@ -275,7 +283,7 @@ const formData = {
   nombreApellido: Joi.string().required(),
   email: Joi.string().email().required(),
   numeroTelefonico: Joi.number().required(),
-  genero: Joi.string().valid("femenino", "masculino").optional().allow(""),
+  genero: Joi.string().valid("femenino", "masculino").required(),
   ciudadOrigen: Joi.string().required(),
   ciudadDestino: Joi.string().required(),
   tipoViaje: Joi.string().valid("Viaje de ida", "Viaje de ida y vuelta").required(),
@@ -323,64 +331,68 @@ let formatted_date =
 
 function createButton() {
   console.log("validation");
-  const resultFrom = Joi.validate(data, formData, async (err, value) => {
-    if (err) {
-      console.log("error");
-      let starForm = err.message;
-      let starIndex = starForm.indexOf("[") + 1;
-      let endIndex = starForm.indexOf("]");
-      let element = starForm.substring(starIndex, endIndex);
+  const resultFrom = Joi.validate(
+    data,
+    formData,
+    { allowUnknown: true },
+    async (err, value) => {
+      if (err) {
+        console.log("error");
+        let starForm = err.message;
+        let starIndex = starForm.indexOf("[") + 1;
+        let endIndex = starForm.indexOf("]");
+        let element = starForm.substring(starIndex, endIndex);
 
-      let cadena2 = element;
+        let cadena2 = element;
 
-      const string = cadena2.slice(1);
-      const string2 = string.indexOf('"');
-      const final = string.slice(0, string2);
-      let messageIndix = string.slice(string2 + 1);
+        const string = cadena2.slice(1);
+        const string2 = string.indexOf('"');
+        const final = string.slice(0, string2);
+        let messageIndix = string.slice(string2 + 1);
 
-      errorObject.errorName = final;
-      errorObject.errorMessage = final + " " + messageIndix;
-      console.log("Que llega", final);
-      console.log("Mensaje", messageIndix);
-      console.log("Datos reactivos", data);
-    } else {
-      loadModule.value = true;
-      let tokenAccess = localStorage.getItem("MyToken");
-      await makeRequest("information-request/create", { token: tokenAccess }, "POST", {
-        Bank: "1",
-        Category: "1",
-        Title: "quote",
-        DateTransaction: formatted_date,
-        nombreApellido: data.nombreApellido,
-        email: data.email,
-        numeroTelefonico: data.numeroTelefonico,
-        genero: data.genero,
-        ciudadOrigen: data.ciudadOrigen,
-        ciudadDestino: data.ciudadDestino,
-        tipoViaje: data.tipoViaje,
-        fechaSalida: new Date(data.fechaSalida).toISOString(),
-        fechaRegreso: new Date(data.fechaRegreso).toISOString(),
-        recibirCotizacion: data.recibirCotizacion,
-        Description: data.description,
-        conditional: data.conditional,
-      });
-      console.log("status", appStatus.value);
-      data.nombreApellido = "";
-      data.email = "";
-      data.numeroTelefonico = "";
-      data.genero = "";
-      data.ciudadOrigen = "";
-      data.ciudadDestino = "";
-      data.tipoViaje = "";
-      data.fechaSalida = "";
-      data.fechaRegreso = "";
-      data.recibirCotizacion = "";
-      data.description = "";
-      data.conditional = "";
-      loadModule.value = false;
-      exictReg.value = true;
+        errorObject.errorName = final;
+        errorObject.errorMessage = final + " " + messageIndix;
+        console.log("Que llega", final);
+        console.log("Mensaje", messageIndix);
+        console.log("Datos reactivos", data);
+      } else {
+        loadModule.value = true;
+        await makeRequest("information-request/create", {}, "POST", {
+          Bank: "1",
+          Category: "1",
+          Title: "quote",
+          DateTransaction: formatted_date,
+          nombreApellido: data.nombreApellido,
+          email: data.email,
+          numeroTelefonico: data.numeroTelefonico,
+          genero: data.genero,
+          ciudadOrigen: data.ciudadOrigen,
+          ciudadDestino: data.ciudadDestino,
+          tipoViaje: data.tipoViaje,
+          fechaSalida: new Date(data.fechaSalida).toISOString(),
+          fechaRegreso: new Date(data.fechaRegreso).toISOString(),
+          recibirCotizacion: data.recibirCotizacion,
+          Description: data.description,
+          conditional: data.conditional,
+        });
+        console.log("status", appStatus.value);
+        data.nombreApellido = "";
+        data.email = "";
+        data.numeroTelefonico = "";
+        data.genero = "";
+        data.ciudadOrigen = "";
+        data.ciudadDestino = "";
+        data.tipoViaje = "";
+        data.fechaSalida = "";
+        data.fechaRegreso = "";
+        data.recibirCotizacion = "";
+        data.description = "";
+        data.conditional = "";
+        loadModule.value = false;
+        exictReg.value = true;
+      }
     }
-  });
+  );
 }
 </script>
 
