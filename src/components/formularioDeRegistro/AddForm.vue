@@ -267,7 +267,7 @@ const data = reactive({
   fechaSalida: dateFormat(),
   fechaRegreso: dateFormat(),
   recibirCotizacion: "WhatsApp",
-  description: "Viaje ida",
+  description: "",
   conditional: false,
 });
 
@@ -275,7 +275,7 @@ const formData = {
   nombreApellido: Joi.string().required(),
   email: Joi.string().email().required(),
   numeroTelefonico: Joi.number().required(),
-  genero: Joi.string().valid("femenino", "masculino").required(),
+  genero: Joi.string().valid("femenino", "masculino").optional().allow(""),
   ciudadOrigen: Joi.string().required(),
   ciudadDestino: Joi.string().required(),
   tipoViaje: Joi.string().valid("Viaje de ida", "Viaje de ida y vuelta").required(),
