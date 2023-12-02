@@ -282,7 +282,7 @@ const data = reactive({
 const formData = {
   nombreApellido: Joi.string().required(),
   email: Joi.string().email().required(),
-  numeroTelefonico: Joi.number().max(12).required(),
+  numeroTelefonico: Joi.number().max(15).required(),
   genero: Joi.string().valid("femenino", "masculino").required(),
   ciudadOrigen: Joi.string().required(),
   ciudadDestino: Joi.string().required(),
