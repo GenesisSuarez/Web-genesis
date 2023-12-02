@@ -56,6 +56,7 @@
             placeholder="312357030"
             v-model="data.numeroTelefonico"
             :class="{ 'is-invalid': hasError('numeroTelefonico') }"
+            min="1" max="15"
           />
           <div v-if="hasError('numeroTelefonico')" class="invalid-feedback">
             {{ errorObject.errorMessage }}
@@ -282,7 +283,7 @@ const data = reactive({
 const formData = {
   nombreApellido: Joi.string().required(),
   email: Joi.string().email().required(),
-  numeroTelefonico: Joi.number().max(15).required(),
+  numeroTelefonico: Joi.number().required(),
   genero: Joi.string().valid("femenino", "masculino").required(),
   ciudadOrigen: Joi.string().required(),
   ciudadDestino: Joi.string().required(),
