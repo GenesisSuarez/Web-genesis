@@ -35,9 +35,8 @@
       <div class="col-md-6">
         <label for="inputEmail4" class="form-label">EMAIL</label>
         <input
-          type="email"
+          type="text"
           class="form-control"
-          id="inputEmail4"
           placeholder="name@example.com"
           v-model="data.email"
           :class="{ 'is-invalid': hasError('email') }"
