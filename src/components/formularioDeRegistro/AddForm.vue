@@ -50,7 +50,7 @@
         <div class="col-md-6">
           <label for="inputEmail4" class="form-label">NÚMERO TELEFÓNICO</label>
           <input
-            type="number"
+            type="text"
             class="form-control"
             placeholder="312357030"
             v-model="data.numeroTelefonico"
