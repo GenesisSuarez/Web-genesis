@@ -16,18 +16,30 @@
         }
 
         p {
-            font-size: 18px;
+            font-size: 20px;
             font-family: $fuentes-h1;
             text-align: center;
 
             @include movil {
-                font-size: 15px;
+                font-size: 18px;
             }
         }
     }
 
-    .table__items {
-        width: 400px;
-        overflow-x: scroll !important;
+    .table-responsive {
+        margin-bottom: 15px;
+
+        @include movil {
+            margin-bottom: 15px;
+            width: 400px;
+            overflow-x: scroll !important;
+        }
+    }
+
+    .button {
+        color: $White;
+        @include movil {
+            width: 35% !important;
+        }
     }
 }

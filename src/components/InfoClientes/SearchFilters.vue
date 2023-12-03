@@ -94,7 +94,7 @@
       </div>
     </div>
 
-    <button type="button" @click="searchFilt" class="btn btn-info">Buscar</button>
+    <button type="button" @click="searchFilt" class="btn btn-success">Buscar</button>
   </div>
 </template>
 

@@ -34,11 +34,11 @@
         </tbody>
       </table>
     </div>
-    <div class="d-grid gap-2 col-6 mx-auto" style="width: 15%; margin-bottom: 10px">
+    <div class="d-grid gap-2 col-6 mx-auto button" style="width: 15%; margin-bottom: 10px">
       <button
         type="button"
         @click="loadMore"
-        class="btn btn-info"
+        class="btn btn-success"
         :disabled="allDataLoaded"
       >
         Cargar más
