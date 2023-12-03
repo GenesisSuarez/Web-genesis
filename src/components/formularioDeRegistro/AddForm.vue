@@ -330,14 +330,12 @@ let formatted_date =
   current_datetime.getSeconds();
 
 function createButton() {
-  console.log("validation");
   const resultFrom = Joi.validate(
     data,
     formData,
     { allowUnknown: true },
     async (err, value) => {
       if (err) {
-        console.log("error");
         let starForm = err.message;
         let starIndex = starForm.indexOf("[") + 1;
         let endIndex = starForm.indexOf("]");
@@ -352,9 +350,6 @@ function createButton() {
 
         errorObject.errorName = final;
         errorObject.errorMessage = final + " " + messageIndix;
-        console.log("Que llega", final);
-        console.log("Mensaje", messageIndix);
-        console.log("Datos reactivos", data);
       } else {
         loadModule.value = true;
         await makeRequest("information-request/create", {}, "POST", {
@@ -375,7 +370,6 @@ function createButton() {
           Description: data.description,
           conditional: data.conditional,
         });
-        console.log("status", appStatus.value);
         data.nombreApellido = "";
         data.email = "";
         data.numeroTelefonico = "";

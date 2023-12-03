@@ -61,7 +61,6 @@ import { useCartStore } from "../../store/cartContainer";
 const store = useCartStore();
 const { result, makeRequest, errorData, isLoading } = useAsync();
 const page = ref("1");
-const limit = ref("5");
 const allDataLoaded = ref(false);
 const showItems = ref(false);
 
@@ -98,6 +97,7 @@ const respuesta = async (param = {}, page = 1) => {
     if (param.tipoViaje) queryParams.tipoViaje = param.tipoViaje;
     if (param.fechaSalida) queryParams.fechaSalida = param.fechaSalida;
     if (param.fechaRegreso) queryParams.fechaRegreso = param.fechaRegreso;
+    if (param.fechaRegreso) queryParams.Description = param.Description;
     if (tokenAccess) queryParams.token = tokenAccess;
 
     queryParams.page = page;
@@ -109,7 +109,6 @@ const respuesta = async (param = {}, page = 1) => {
 
     if (result.value && result.value.data && result.value.data.Items) {
       console.log("Resultado de la consulta: ", result.value.data.Items);
-      // clientes.value = (result.value.data.Items);
       clientes.value = [...clientes.value, ...result.value.data.Items];
       if (clientes.value.length === 0 || result.value.data.Items.length === 0) {
         allDataLoaded.value = true;
@@ -128,7 +127,6 @@ const loadMore = async () => {
   }
   page.value++;
   await respuesta({}, page.value);
-  console.log("Cargar mas", loadMore);
 };
 
 onMounted(() => {

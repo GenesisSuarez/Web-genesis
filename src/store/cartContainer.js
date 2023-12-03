@@ -10,7 +10,8 @@ export const useCartStore = defineStore("currentItem", {
             fechaSalida: "",
             fechaRegreso: "",
             recibirCotizacion: "",
-            numeroTelefonico: ""
+            numeroTelefonico: "",
+            Description: "",
         }
     }),
     getters: {

@@ -1,12 +1,10 @@
 <template>
-  <!-- <ProgressCircular v-if="isLoading && !errorData" />
-  <ModelError v-if="errorData && !isLoading" /> -->
   <div class="model-user">
     <v-card
       class="modal__container d-flex flex-column fill-height justify-center align-center text-white"
     >
       <h5>Datos de viajes</h5>
-      <v-card-text class="subheading" style="margin: 20px; background-color: #ffffff">
+      <v-card-text class="subheading" style="background-color: #ffffff">
         <p style="text-align: justify">Nombre y apellido: {{ approvedQuot.nombreApellido }}</p>
         <p style="text-align: justify">Ciudad de origen: {{ approvedQuot.ciudadOrigen }}</p>
         <p style="text-align: justify">Ciudad de destino: {{ approvedQuot.ciudadDestino }}</p>
@@ -17,6 +15,7 @@
           Información de cotización: {{ approvedQuot.recibirCotizacion }}
         </p>
         <p style="text-align: justify">Número Telefónico: {{ approvedQuot.numeroTelefonico }}</p>
+        <p style="text-align: justify">Descripción: {{ approvedQuot.Description }}</p>
         <v-card-actions
           style="background-color: #ffffff; display: flex; margin-right: 27px; justify-content: end"
         >
@@ -29,8 +28,6 @@
 
 <script setup>
 import { computed } from "vue";
-// import ProgressCircular from "../Modales/ProgressCircular.vue";
-// import ModelError from "../Modales/ModelError.vue";
 import { useCartStore } from "../../store/cartContainer";
 
 const store = useCartStore();
