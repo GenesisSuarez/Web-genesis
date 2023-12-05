@@ -65,12 +65,6 @@ const allDataLoaded = ref(false);
 const showItems = ref(false);
 
 const clientes = ref([
-  {
-    nombreApellido: "",
-    email: "",
-    DateTransaction: "",
-    genero: "",
-  },
 ]);
 
 const dateFormat = (fecha) => {
