@@ -72,6 +72,8 @@
                 height: 30px;
                 grid-row: 1;
                 grid-column: 2;
+                display: flex;
+                align-self: first baseline;
             }
 
             p {
