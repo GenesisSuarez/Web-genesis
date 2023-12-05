@@ -17,7 +17,7 @@
       <v-card-actions>
         <v-spacer></v-spacer>
 
-        <v-btn @click="openForm">Cotiza</v-btn>
+        <v-btn @click="openForm">Cotizar</v-btn>
       </v-card-actions>
     </v-card>
   </div>
