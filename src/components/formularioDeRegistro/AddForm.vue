@@ -265,7 +265,6 @@
       <div class="form-floating">
         <textarea
           class="form-control"
-          placeholder="Leave a comment here"
           v-model="data.description"
           id="floatingTextarea2"
           style="height: 100px"
