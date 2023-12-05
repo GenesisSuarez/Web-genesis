@@ -14,13 +14,15 @@
   </header>
 
   <div class="container-add">
-    <p style="font-size: 18px; text-align: center">Formulario de cotización</p>
+    <p style="font-size: 20px; text-align: center; font-weight: bold; margin-top: 20px">
+      Formulario de cotización
+    </p>
 
     <form @submit.prevent="createButton" class="row g-3" style="padding: 15px">
-      <p style="font-size: 16px">1.INFORMACIÓN DEL PAJAJERO</p>
+      <p style="font-size: 16px">1. INFORMACIÓN DEL PAJAJERO</p>
 
       <div class="col-md-6">
-        <label for="inputEmail4" class="form-label">NOMBRE Y APELLIDO</label>
+        <label for="inputEmail4" class="form-label">Nombre y apellido</label>
         <input
           type="text"
           class="form-control"
@@ -33,7 +35,7 @@
       </div>
 
       <div class="col-md-6">
-        <label for="inputEmail4" class="form-label">EMAIL</label>
+        <label for="inputEmail4" class="form-label">Email</label>
         <input
           type="text"
           class="form-control"
@@ -48,17 +50,36 @@
 
       <div class="row" style="margin-top: 20px">
         <div class="col-md-6">
-          <label for="inputEmail4" class="form-label">NÚMERO TELEFÓNICO</label>
-          <input
-            type="text"
-            class="form-control"
-            placeholder="312357030"
-            v-model="data.numeroTelefonico"
-            :class="{ 'is-invalid': hasError('numeroTelefonico') }"
-            min="1" max="15"
-          />
-          <div v-if="hasError('numeroTelefonico')" class="invalid-feedback">
-            {{ errorObject.errorMessage }}
+          <label for="inputEmail4" class="form-label">Número telefonico</label>
+          <div class="input-group mb-3">
+            <button
+              class="btn btn-outline-secondary dropdown-toggle"
+              type="button"
+              data-bs-toggle="dropdown"
+              aria-expanded="false"
+            >
+              {{ numberVar }}
+            </button>
+            <ul
+              class="dropdown-menu"
+              style="overflow-y: scroll; min-width: 20px; max-height: 120px"
+            >
+              <li @click="() => flagSelect(flag.phone)" v-for="(flag, i) in extent" :key="i">
+                <a class="dropdown-item">{{ flag.value }} {{ flag.phone }}</a>
+              </li>
+            </ul>
+            <input
+              type="text"
+              class="form-control"
+              placeholder="312357030"
+              v-model="data.numeroTelefonico"
+              :class="{ 'is-invalid': hasError('numeroTelefonico') }"
+              min="1"
+              max="15"
+            />
+            <div v-if="hasError('numeroTelefonico')" class="invalid-feedback">
+              {{ errorObject.errorMessage }}
+            </div>
           </div>
         </div>
 
@@ -101,10 +122,10 @@
         </div>
       </div>
 
-      <p style="font-size: 16px">2.FECHA EN LA QUE DESEA VIAJAR</p>
+      <p style="font-size: 16px">2. INFORMACIÓN DE VIAJE</p>
 
       <div class="col-md-6">
-        <label for="inputEmail4" class="form-label">CIUDAD DE ORIGEN</label>
+        <label for="inputEmail4" class="form-label">Ciudad de origen</label>
         <input
           type="text"
           class="form-control"
@@ -117,7 +138,7 @@
       </div>
 
       <div class="col-md-6">
-        <label for="inputEmail4" class="form-label">CIUDAD DE DESTINO</label>
+        <label for="inputEmail4" class="form-label">Ciudad de destino</label>
         <input
           type="text"
           class="form-control"
@@ -146,7 +167,7 @@
       </div>
 
       <div class="col-md-6">
-        <label for="fechaSalida" class="form-label">FECHA DE SALIDA</label>
+        <label for="fechaSalida" class="form-label">Fecha de salida</label>
         <input
           type="date"
           class="form-control"
@@ -166,7 +187,7 @@
         v-if="data.tipoViaje === 'Viaje de ida y vuelta'"
       >
         <div class="col-md-6">
-          <label for="fechaRegreso" class="form-label">FECHA DE REGRESO</label>
+          <label for="fechaRegreso" class="form-label">Fecha de regreso</label>
           <input
             type="date"
             class="form-control"
@@ -180,21 +201,64 @@
         </div>
       </div>
 
-      <div class="col-md-6">
-        <label for="recibirCotizacion" class="form-label"
-          >DONDE DESEA RECIBIR LA COTIZACIÓN</label
-        >
-        <select
-          id="recibirCotizacion"
-          class="form-select"
-          v-model="data.recibirCotizacion"
-          :class="{ 'is-invalid': hasError('recibirCotizacion') }"
-        >
-          <option>WhatsApp</option>
-          <option>Correo Electrónico</option>
-        </select>
-        <div v-if="hasError('recibirCotizacion')" class="invalid-feedback">
-          {{ errorObject.errorMessage }}
+      <div class="row" style="margin-top: 20px">
+        <div class="col-md-6">
+          <label for="recibirCotizacion" class="form-label"
+            >Donde desea recibir la cotización</label
+          >
+          <select
+            id="recibirCotizacion"
+            class="form-select"
+            v-model="data.recibirCotizacion"
+            :class="{ 'is-invalid': hasError('recibirCotizacion') }"
+          >
+            <option>WhatsApp</option>
+            <option>Correo Electrónico</option>
+          </select>
+          <div v-if="hasError('recibirCotizacion')" class="invalid-feedback">
+            {{ errorObject.errorMessage }}
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <label
+            for="inputEmail4"
+            class="form-label"
+            style="display: flex; margin-bottom: 15px"
+            >Opciones que incluye el viaje:</label
+          >
+
+          <div class="form-check form-check-inline">
+            <input
+              v-model="data.optionViaje"
+              :class="{ 'is-invalid': hasError('optionViaje') }"
+              class="form-check-input"
+              type="radio"
+              name="optionViaje"
+              id="radioOption"
+              value="Option"
+            />
+            <label class="form-check-label" for="inlineCheckbox1"
+              >Plan completo (vuelos, hotel y tours)</label
+            >
+          </div>
+
+          <div class="form-check form-check-inline">
+            <input
+              v-model="data.optionViaje"
+              :class="{ 'is-invalid': hasError('optionViaje') }"
+              class="form-check-input"
+              type="radio"
+              name="optionViaje"
+              id="radioTiquete"
+              value="tiquetes"
+            />
+            <label class="form-check-label" for="inlineCheckbox2">Solo tiquetes</label>
+
+            <div v-if="hasError('optionViaje')" class="invalid-feedback">
+              {{ errorObject.errorMessage }}
+            </div>
+          </div>
         </div>
       </div>
 
@@ -206,7 +270,7 @@
           id="floatingTextarea2"
           style="height: 100px"
         ></textarea>
-        <label for="floatingTextarea2">Descripción del viaje</label>
+        <label for="floatingTextarea2">Peticiones adicionales</label>
       </div>
 
       <div class="button__container">
@@ -255,6 +319,7 @@ const router = useRouter();
 const loadModule = ref(false);
 const exictReg = ref(false);
 const showModal = ref(false);
+const numberVar = ref("+57")
 
 function closetForm() {
   router.push({ name: "ImportApp" });
@@ -268,6 +333,7 @@ const data = reactive({
   nombreApellido: "",
   email: "",
   numeroTelefonico: "",
+  extension: "",
   genero: "",
   ciudadOrigen: "",
   ciudadDestino: "",
@@ -275,6 +341,7 @@ const data = reactive({
   fechaSalida: dateFormat(),
   fechaRegreso: dateFormat(),
   recibirCotizacion: "WhatsApp",
+  optionViaje: "",
   description: "",
   conditional: false,
 });
@@ -290,9 +357,37 @@ const formData = {
   fechaSalida: Joi.date().iso().optional().allow(""),
   fechaRegreso: Joi.date().iso().optional().allow(""),
   recibirCotizacion: Joi.string().valid("WhatsApp", "Correo Electrónico").required(),
-  description: Joi.string().max(100).required(),
+  optionViaje: Joi.string().valid("Option", "tiquetes").required(),
+  description: Joi.string().optional().allow(""),
   conditional: Joi.boolean().valid(true).required(),
 };
+
+const extent = [
+  { country: "Estados unidos", value: "🇺🇸", phone: "+1" },
+  { country: "España", value: "🇪🇸", phone: "+51" },
+  { country: "Francia", value: "🇫🇷", phone: "+33" },
+  { country: "Italia", value: "🇮🇹", phone: "+39" },
+  { country: "Colombia", value: "🇨🇴", phone: "+57" },
+  { country: "Ecuador", value: "🇪🇨", phone: "+593" },
+  { country: "Peru", value: "🇵🇪", phone: "+51" },
+  { country: "Chile", value: "🇨🇱", phone: "+56" },
+  { country: "Argentina", value: "🇦🇷", phone: "+54" },
+  { country: "Brazil", value: "🇧🇷", phone: "+55" },
+  { country: "Mexico", value: "🇲🇽", phone: "+52" },
+  { country: "Uruguay", value: "🇺🇾", phone: "+598" },
+  { country: "Bolivia", value: "🇧🇴", phone: "+591" },
+  { country: "Paises Bajos", value: "🇳🇱", phone: "+31" },
+  { country: "Venezuela", value: "🇻🇪", phone: "+58" },
+  { country: "Paraguay", value: "🇵🇾", phone: "+595" },
+  { country: "Germania", value: "🇩🇪", phone: "+49" },
+  { country: "Japon", value: "🇯🇵", phone: "+81" },
+  { country: "South Korea", value: "🇰🇷", phone: "+82" },
+  { country: "China", value: "🇨🇳", phone: "+86" },
+];
+
+function flagSelect(ev) {
+  numberVar.value = ev
+}
 
 const errorObject = reactive({
   errorName: "",
@@ -350,6 +445,8 @@ function createButton() {
 
         errorObject.errorName = final;
         errorObject.errorMessage = final + " " + messageIndix;
+        console.log("final", final);
+        console.log("final2", messageIndix);
       } else {
         loadModule.value = true;
         await makeRequest("information-request/create", {}, "POST", {
@@ -367,6 +464,7 @@ function createButton() {
           fechaSalida: new Date(data.fechaSalida).toISOString(),
           fechaRegreso: new Date(data.fechaRegreso).toISOString(),
           recibirCotizacion: data.recibirCotizacion,
+          optionViaje: data.optionViaje,
           Description: data.description,
           conditional: data.conditional,
         });
@@ -380,6 +478,7 @@ function createButton() {
         data.fechaSalida = "";
         data.fechaRegreso = "";
         data.recibirCotizacion = "";
+        data.optionViaje = "";
         data.description = "";
         data.conditional = "";
         loadModule.value = false;

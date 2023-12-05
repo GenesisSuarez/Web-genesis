@@ -1,5 +1,5 @@
 <template>
-  <div class="model">
+  <div class="model-norma">
       <v-card
         class="modal__container d-flex flex-column fill-height justify-center align-center text-white"
       >
