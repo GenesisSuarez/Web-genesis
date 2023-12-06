@@ -1,13 +1,13 @@
 <template>
   <ProgressCircular v-if="isLoading && !errorData" />
-  <ModelError v-if="errorData && !isLoading" />
-  <InfoUser v-show="showItems" @closet-model="closetModal" />
+  <ErrorModal v-if="errorData && !isLoading" />
+  <QuotationDetail v-show="showItems" @closet-model="closetModal" />
   <div class="container-info">
     <div class="info__title">
       <img src="../../assets/logo.png" alt="" />
       <p>Información de cliente para cotización</p>
     </div>
-    <SearchFilters @valid-successful="(filters) => handleSuccessful(filters)" />
+    <QuoteFilters @valid-successful="(filters) => handleSuccessful(filters)" />
     <div class="table-responsive">
       <table class="table">
         <thead>
@@ -53,9 +53,9 @@ import { format } from "date-fns";
 import { es } from "date-fns/locale";
 import { useAsync } from "../../hooks/useAsync";
 import ProgressCircular from "../Modales/ProgressCircular.vue";
-import ModelError from "../Modales/ModelError.vue";
-import InfoUser from "./InfoUser.vue";
-import SearchFilters from "./SearchFilters.vue";
+import ErrorModal from "../Modales/ErrorModal.vue";
+import QuotationDetail from "./QuotationDetail.vue";
+import QuoteFilters from "./QuoteFilters.vue";
 import { useCartStore } from "../../store/cartContainer";
 
 const store = useCartStore();
@@ -91,6 +91,7 @@ const respuesta = async (param = {}, page = 1) => {
     if (param.tipoViaje) queryParams.tipoViaje = param.tipoViaje;
     if (param.fechaSalida) queryParams.fechaSalida = param.fechaSalida;
     if (param.fechaRegreso) queryParams.fechaRegreso = param.fechaRegreso;
+    if (param.optionViaje) queryParams.optionViaje = param.optionViaje;
     if (param.fechaRegreso) queryParams.Description = param.Description;
     if (tokenAccess) queryParams.token = tokenAccess;
 
@@ -104,6 +105,7 @@ const respuesta = async (param = {}, page = 1) => {
     if (result.value && result.value.data && result.value.data.Items) {
       console.log("Resultado de la consulta: ", result.value.data.Items);
       clientes.value = [...clientes.value, ...result.value.data.Items];
+      console.log("clientes items", clientes);
       if (clientes.value.length === 0 || result.value.data.Items.length === 0) {
         allDataLoaded.value = true;
       }

@@ -1,8 +1,8 @@
 <template>
   <ProgressCircular v-if="loadModule && !errorData" />
-  <ModelError v-if="errorData && !loadModule" />
-  <ModeOfRegis v-if="exictReg && !errorData" />
-  <Conditional v-if="showModal" @accept-terms="itemsCloset" />
+  <ErrorModal  v-if="errorData && !loadModule" />
+  <RegistConfirm v-if="exictReg && !errorData" />
+  <ConditionalOfQuote v-if="showModal" @accept-terms="itemsCloset" />
   <header class="arrow">
     <img
       @click="closetForm"
@@ -64,7 +64,11 @@
               class="dropdown-menu"
               style="overflow-y: scroll; min-width: 20px; max-height: 120px"
             >
-              <li @click="() => flagSelect(flag.phone)" v-for="(flag, i) in extent" :key="i">
+              <li
+                @click="() => flagSelect(flag.phone)"
+                v-for="(flag, i) in extent"
+                :key="i"
+              >
                 <a class="dropdown-item">{{ flag.value }} {{ flag.phone }}</a>
               </li>
             </ul>
@@ -307,9 +311,9 @@ import { Joi } from "vue-joi-validation";
 import { useAsync } from "../../hooks/useAsync";
 import { useRouter } from "vue-router";
 import ProgressCircular from "../Modales/ProgressCircular.vue";
-import ModelError from "../Modales/ModelError.vue";
-import ModeOfRegis from "../Modales/ModeOfRegis.vue";
-import Conditional from "../Modales/Conditional.vue";
+import ErrorModal from "../Modales/ErrorModal.vue";
+import RegistConfirm from "../Modales/RegistConfirm.vue";
+import ConditionalOfQuote from "../Modales/ConditionalOfQuote.vue";
 import { format } from "date-fns";
 import { es } from "date-fns/locale";
 
@@ -318,7 +322,7 @@ const router = useRouter();
 const loadModule = ref(false);
 const exictReg = ref(false);
 const showModal = ref(false);
-const numberVar = ref("+57")
+const numberVar = ref("+57");
 
 function closetForm() {
   router.push({ name: "ImportApp" });
@@ -385,7 +389,7 @@ const extent = [
 ];
 
 function flagSelect(ev) {
-  numberVar.value = ev
+  numberVar.value = ev;
 }
 
 const errorObject = reactive({
@@ -456,6 +460,7 @@ function createButton() {
           nombreApellido: data.nombreApellido,
           email: data.email,
           numeroTelefonico: data.numeroTelefonico.toString(),
+          Telefono: numberVar.value,
           genero: data.genero,
           ciudadOrigen: data.ciudadOrigen,
           ciudadDestino: data.ciudadDestino,

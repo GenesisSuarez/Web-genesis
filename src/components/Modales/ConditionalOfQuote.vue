@@ -114,7 +114,6 @@ let data = ref({ conditional: false });
 let showModal = ref(true);
 
 const agreeWithTerms = () => {
-  // Tu lógica aquí
   showModal.value = false;
 };
 </script>

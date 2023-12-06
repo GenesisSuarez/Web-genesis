@@ -1,6 +1,6 @@
 <template>
   <ProgressCircular v-if="loadModule && !errorData" />
-  <ModelError v-if="errorData && !loadModule" />
+  <ErrorModal v-if="errorData && !loadModule" />
   <div class="input">
     <div class="col input-search">
       <label for="formGroupExampleInput2" class="form-label">Nombre y Apellido</label>
@@ -102,7 +102,7 @@
 import { reactive, computed, defineEmits, ref } from "vue";
 import { Joi } from "vue-joi-validation";
 import ProgressCircular from "../Modales/ProgressCircular.vue";
-import ModelError from "../Modales/ModelError.vue";
+import ErrorModal from "../Modales/ErrorModal.vue";
 import { useAsync } from "../../hooks/useAsync";
 
 const { errorData } = useAsync();

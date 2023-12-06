@@ -1,6 +1,6 @@
 <template>
   <ProgressCircular v-if="isLoading && !errorData" />
-  <ModelError v-if="errorData && !isLoading" />
+  <ErrorModal v-if="errorData && !isLoading" />
   <div class="login">
     <div class="form-container">
       <img src="../../assets/logo.png" alt="logo" class="logo" />
@@ -48,7 +48,7 @@
 <script setup>
 import { Joi } from "vue-joi-validation";
 import ProgressCircular from "../Modales/ProgressCircular.vue";
-import ModelError from "../Modales/ModelError.vue";
+import ErrorModal from "../Modales/ErrorModal.vue";
 import { reactive, computed } from "vue";
 import { useRouter } from "vue-router";
 import { useAsync } from "../../hooks/useAsync";

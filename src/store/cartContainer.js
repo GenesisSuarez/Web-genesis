@@ -9,6 +9,7 @@ export const useCartStore = defineStore("currentItem", {
             tipoViaje: "",
             fechaSalida: "",
             fechaRegreso: "",
+            optionViaje: "",
             recibirCotizacion: "",
             numeroTelefonico: "",
             Description: "",

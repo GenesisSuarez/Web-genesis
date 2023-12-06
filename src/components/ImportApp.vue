@@ -1,5 +1,5 @@
 <script setup>
-import ModaIInit from "./Modales/ModaIInit.vue";
+import ModaIStart from "./Modales/ModaIStart.vue";
 import Header from "./paginaWeb/Header.vue";
 import CartsInfo from "./paginaWeb/CartsInfo.vue";
 import Carrucel from "./paginaWeb/CarrucelTesting.vue";
@@ -15,7 +15,7 @@ const callback = () => {
 
 <template>
   <div class="wrapper">
-    <ModaIInit v-if="isActive" @close-modal="callback" />
+    <ModaIStart v-if="isActive" @close-modal="callback" />
     <Header />
     <CartsInfo />
     <IconSocial />
