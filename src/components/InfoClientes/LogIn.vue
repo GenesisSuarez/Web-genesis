@@ -54,7 +54,6 @@ import { useRouter } from "vue-router";
 import { useAsync } from "../../hooks/useAsync";
 
 const { result, makeRequest, appStatus, isLoading, errorData } = useAsync();
-isLoading.value = false
 
 const router = useRouter();
 
@@ -108,30 +107,25 @@ function loginAdd() {
 
       errorObject.errorName = final;
       errorObject.errorMessage = final + " " + messageIndix;
-      console.log("error", errorObject.errorMessage);
+      
     } else {
       generalError.message = "";
       await makeRequest("user/login", {
         email: user.email,
         password: user.password,
       });
-      console.log("Respuesta de", appStatus.value);
+      
       if (
         result.value &&
         result.value.data &&
         result.value.data.AuthenticationResult &&
         result.value.data.AuthenticationResult.AccessToken
       ) {
-        console.log(
-          "AccessToken ha llegado correctamente: ",
-          result.value.data.AuthenticationResult.AccessToken
-        );
         let myToken = result.value.data.AuthenticationResult.AccessToken;
         localStorage.setItem("MyToken", myToken);
         router.push({ name: "infoTable" });
       } else {
         generalError.message = "¡Ha ocurrido un error! Por favor, verifica tus datos.";
-        console.log("AccessToken no se encuentra disponible");
       }
     }
   });
