@@ -1,6 +1,6 @@
 <template>
   <ProgressCircular v-if="loadModule && !errorData" />
-  <ErrorModal  v-if="errorData && !loadModule" />
+  <ErrorModal v-if="errorData && !loadModule" />
   <RegistConfirm v-if="exictReg && !errorData" />
   <ConditionalOfQuote v-if="showModal" @accept-terms="itemsCloset" />
   <header class="arrow">
@@ -12,9 +12,15 @@
     />
     <img class="logo" src="../../assets/logo.png" alt="" />
   </header>
-
   <div class="container-add">
-    <p style="font-size: 20px; text-align: center; font-weight: bold; margin-top: 20px">
+    <p
+      style="
+        font-size: 20px;
+        text-align: center;
+        font-weight: bold;
+        margin-top: 20px;
+      "
+    >
       Formulario de cotización
     </p>
 
@@ -27,9 +33,9 @@
           type="text"
           class="form-control"
           v-model="data.nombreApellido"
-          :class="{ 'is-invalid': hasError('nombreApellido') }"
+          :class="{ 'is-invalid': hasError('Nombre y Apellido') }"
         />
-        <div v-if="hasError('nombreApellido')" class="invalid-feedback">
+        <div v-if="hasError('Nombre y Apellido')" class="invalid-feedback">
           {{ errorObject.errorMessage }}
         </div>
       </div>
@@ -50,7 +56,7 @@
 
       <div class="row" style="margin-top: 20px">
         <div class="col-md-6">
-          <label for="inputEmail4" class="form-label">Número telefonico</label>
+          <label for="inputEmail4" class="form-label">Número telefónico</label>
           <div class="input-group mb-3">
             <button
               class="btn btn-outline-secondary dropdown-toggle"
@@ -77,11 +83,11 @@
               class="form-control"
               placeholder="312357030"
               v-model="data.numeroTelefonico"
-              :class="{ 'is-invalid': hasError('numeroTelefonico') }"
+              :class="{ 'is-invalid': hasError('Número telefónico') }"
               min="1"
               max="15"
             />
-            <div v-if="hasError('numeroTelefonico')" class="invalid-feedback">
+            <div v-if="hasError('Número telefónico')" class="invalid-feedback">
               {{ errorObject.errorMessage }}
             </div>
           </div>
@@ -105,7 +111,9 @@
               id="radioFemenino"
               value="femenino"
             />
-            <label class="form-check-label" for="inlineCheckbox1">femenino</label>
+            <label class="form-check-label" for="inlineCheckbox1"
+              >femenino</label
+            >
           </div>
 
           <div class="form-check form-check-inline">
@@ -118,7 +126,9 @@
               id="radioMasculino"
               value="masculino"
             />
-            <label class="form-check-label" for="inlineCheckbox2">masculino</label>
+            <label class="form-check-label" for="inlineCheckbox2"
+              >masculino</label
+            >
             <div v-if="hasError('genero')" class="invalid-feedback">
               {{ errorObject.errorMessage }}
             </div>
@@ -134,9 +144,9 @@
           type="text"
           class="form-control"
           v-model="data.ciudadOrigen"
-          :class="{ 'is-invalid': hasError('ciudadOrigen') }"
+          :class="{ 'is-invalid': hasError('Ciudad de origen') }"
         />
-        <div v-if="hasError('ciudadOrigen')" class="invalid-feedback">
+        <div v-if="hasError('Ciudad de origen')" class="invalid-feedback">
           {{ errorObject.errorMessage }}
         </div>
       </div>
@@ -147,25 +157,27 @@
           type="text"
           class="form-control"
           v-model="data.ciudadDestino"
-          :class="{ 'is-invalid': hasError('ciudadDestino') }"
+          :class="{ 'is-invalid': hasError('Ciudad de destino') }"
         />
-        <div v-if="hasError('ciudadDestino')" class="invalid-feedback">
+        <div v-if="hasError('Ciudad de destino')" class="invalid-feedback">
           {{ errorObject.errorMessage }}
         </div>
       </div>
 
       <div class="col-md-6">
-        <label for="tipoViaje" class="form-label">Selecciona el tipo de viaje</label>
+        <label for="tipoViaje" class="form-label"
+          >Selecciona el tipo de viaje</label
+        >
         <select
           id="tipoViaje"
           class="form-select"
           v-model="data.tipoViaje"
-          :class="{ 'is-invalid': hasError('tipoViaje') }"
+          :class="{ 'is-invalid': hasError('tipo de Viaje') }"
         >
           <option>Viaje de ida</option>
           <option>Viaje de ida y vuelta</option>
         </select>
-        <div v-if="hasError('tipoViaje')" class="invalid-feedback">
+        <div v-if="hasError('tipo de Viaje')" class="invalid-feedback">
           {{ errorObject.errorMessage }}
         </div>
       </div>
@@ -214,12 +226,12 @@
             id="recibirCotizacion"
             class="form-select"
             v-model="data.recibirCotizacion"
-            :class="{ 'is-invalid': hasError('recibirCotizacion') }"
+            :class="{ 'is-invalid': hasError('Recibir cotizacion') }"
           >
-            <option>WhatsApp</option>
-            <option>Correo Electrónico</option>
+            <option value="WhatsApp">WhatsApp</option>
+            <option value="Correo Electronico">Correo Electrónico</option>
           </select>
-          <div v-if="hasError('recibirCotizacion')" class="invalid-feedback">
+          <div v-if="hasError('Recibir cotizacion')" class="invalid-feedback">
             {{ errorObject.errorMessage }}
           </div>
         </div>
@@ -240,7 +252,7 @@
               type="radio"
               name="optionViaje"
               id="radioOption"
-              value="Option"
+              value="Plan completo (vuelos, hotel y tours)"
             />
             <label class="form-check-label" for="inlineCheckbox1"
               >Plan completo (vuelos, hotel y tours)</label
@@ -257,12 +269,40 @@
               id="radioTiquete"
               value="tiquetes"
             />
-            <label class="form-check-label" for="inlineCheckbox2">Solo tiquetes</label>
+            <label class="form-check-label" for="inlineCheckbox2"
+              >Solo tiquetes</label
+            >
 
             <div v-if="hasError('optionViaje')" class="invalid-feedback">
               {{ errorObject.errorMessage }}
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="col-md-2">
+        <label for="tipoViaje" class="form-label"
+          >Selecciona el número de personas</label
+        >
+        <select
+          id="numeroPersonas"
+          class="form-select"
+          v-model="data.numeroPersonas"
+          :class="{ 'is-invalid': hasError('Número de personas') }"
+        >
+          <option 
+            v-for="({ value }, index) in numberOfPersons" 
+            :key="index"
+            :value="value"
+            >
+            {{ value }}
+          </option>
+          <!-- <option :value="1">1</option>
+          <option :value="2">2</option>
+          <option :value="3">3</option> -->
+        </select>
+        <div v-if="hasError('Número de personas')" class="invalid-feedback">
+          {{ errorObject.errorMessage }}
         </div>
       </div>
 
@@ -282,7 +322,7 @@
           type="checkbox"
           id="btnModalOpen"
           v-model="data.conditional"
-          :class="{ 'is-invalid': hasError('conditional') }"
+          :class="{ 'is-invalid': hasError('Términos y condiciones') }"
         />
 
         <label
@@ -293,12 +333,15 @@
         >
           Leer términos y condiciones
         </label>
-        <div v-if="hasError('conditional')" class="invalid-feedback">
+        <div v-if="hasError('Términos y condiciones')" class="invalid-feedback">
           {{ errorObject.errorMessage }}
         </div>
       </div>
 
-      <div style="margin-top: 30px; display: grid; justify-items: center" class="col-12">
+      <div
+        style="margin-top: 30px; display: grid; justify-items: center"
+        class="col-12"
+      >
         <button type="submit" class="btn btn-success">Registrar</button>
       </div>
     </form>
@@ -337,32 +380,68 @@ const data = reactive({
   email: "",
   numeroTelefonico: "",
   extension: "",
-  genero: "",
+  genero: "femenino",
   ciudadOrigen: "",
   ciudadDestino: "",
   tipoViaje: "Viaje de ida",
   fechaSalida: dateFormat(),
   fechaRegreso: dateFormat(),
   recibirCotizacion: "WhatsApp",
-  optionViaje: "",
+  optionViaje: "tiquetes",
   description: "",
   conditional: false,
+  numeroPersonas: 1,
 });
 
 const formData = {
-  nombreApellido: Joi.string().required(),
-  email: Joi.string().email().required(),
-  numeroTelefonico: Joi.number().required(),
-  genero: Joi.string().valid("femenino", "masculino").required(),
-  ciudadOrigen: Joi.string().required(),
-  ciudadDestino: Joi.string().required(),
-  tipoViaje: Joi.string().valid("Viaje de ida", "Viaje de ida y vuelta").required(),
+  nombreApellido: Joi.string()
+    .required()
+    .label("Nombre y Apellido")
+    .error(() => '"Nombre y Apellido" no puede estar vacío'),
+  email: Joi.string()
+    .email()
+    .required()
+    .error(() => '"email" no puede estar vacío'),
+  numeroTelefonico: Joi.number()
+    .required()
+    .label("Número telefónico")
+    .error(() => '"Número telefónico" debe ser numérico'),
+  genero: Joi.string()
+    .valid("femenino", "masculino")
+    .required()
+    .error(() => '"genero" no puede estar vacío'),
+  ciudadOrigen: Joi.string()
+    .required()
+    .label("Ciudad de origen")
+    .error(() => '"Ciudad de origen" no puede estar vacío'),
+  ciudadDestino: Joi.string()
+    .required()
+    .label("Ciudad de destino")
+    .error(() => '"Ciudad de destino" no puede estar vacío'),
+  tipoViaje: Joi.string()
+    .valid("Viaje de ida", "Viaje de ida y vuelta")
+    .required()
+    .label("tipo de Viaje"),
   fechaSalida: Joi.date().iso().optional().allow(""),
   fechaRegreso: Joi.date().iso().optional().allow(""),
-  recibirCotizacion: Joi.string().valid("WhatsApp", "Correo Electrónico").required(),
-  optionViaje: Joi.string().valid("Option", "tiquetes").required(),
+  recibirCotizacion: Joi.string()
+    .valid("WhatsApp", "Correo Electronico")
+    .required()
+    .label("Recibir cotizacion"),
+  optionViaje: Joi.string()
+    .valid("Plan completo (vuelos, hotel y tours)", "tiquetes")
+    .required()
+    .label("opciones de viaje"),
   description: Joi.string().optional().allow(""),
-  conditional: Joi.boolean().valid(true).required(),
+  conditional: Joi.boolean()
+    .valid(true)
+    .required()
+    .label("Términos y condiciones")
+    .error(() => '"Términos y condiciones" deben ser aceptados'),
+  numeroPersonas: Joi.number()
+    .required()
+    .label("Número de personas")
+    .error(() => '"Número telefónico" debe ser numérico'),
 };
 
 const extent = [
@@ -386,6 +465,29 @@ const extent = [
   { country: "Japon", value: "🇯🇵", phone: "+81" },
   { country: "South Korea", value: "🇰🇷", phone: "+82" },
   { country: "China", value: "🇨🇳", phone: "+86" },
+];
+
+const numberOfPersons = [
+  { value: 1 },
+  { value: 2 },
+  { value: 3 },
+  { value: 4 },
+  { value: 5 },
+  { value: 6 },
+  { value: 7 },
+  { value: 8 },
+  { value: 9 },
+  { value: 10 },
+  { value: 11 },
+  { value: 12 },
+  { value: 13 },
+  { value: 14 },
+  { value: 15 },
+  { value: 16 },
+  { value: 17 },
+  { value: 18 },
+  { value: 19 },
+  { value: 20 },
 ];
 
 function flagSelect(ev) {
@@ -412,20 +514,26 @@ const itemsCloset = () => {
   data.conditional = true;
 };
 
-let current_datetime = new Date();
+const formatDate = (date = new Date()) => {
+  const year = date.toLocaleString("es-CO", {
+    timeZone: "America/Bogota",
+    year: "numeric",
+  });
 
-let formatted_date =
-  current_datetime.getFullYear() +
-  "-" +
-  (current_datetime.getMonth() + 1) +
-  "-" +
-  current_datetime.getDate() +
-  " " +
-  current_datetime.getHours() +
-  ":" +
-  current_datetime.getMinutes() +
-  ":" +
-  current_datetime.getSeconds();
+  const month = date.toLocaleString("es-CO", {
+    timeZone: "America/Bogota",
+    month: "2-digit",
+  });
+
+  const day = date.toLocaleString("es-CO", {
+    timeZone: "America/Bogota",
+    day: "2-digit",
+  });
+
+  return [year, month, day].join("-");
+};
+
+let formatted_date = formatDate(new Date());
 
 function createButton() {
   const resultFrom = Joi.validate(
@@ -448,8 +556,7 @@ function createButton() {
 
         errorObject.errorName = final;
         errorObject.errorMessage = final + " " + messageIndix;
-        console.log("final", final);
-        console.log("final2", messageIndix);
+        
       } else {
         loadModule.value = true;
         await makeRequest("information-request/create", {}, "POST", {
@@ -457,6 +564,7 @@ function createButton() {
           Category: "1",
           Title: "quote",
           DateTransaction: formatted_date,
+          DateTransaction: "2024-01-17",
           nombreApellido: data.nombreApellido,
           email: data.email,
           numeroTelefonico: data.numeroTelefonico.toString(),
@@ -471,6 +579,7 @@ function createButton() {
           optionViaje: data.optionViaje,
           Description: data.description,
           conditional: data.conditional,
+          amountPersons: data.numeroPersonas
         });
         data.nombreApellido = "";
         data.email = "";

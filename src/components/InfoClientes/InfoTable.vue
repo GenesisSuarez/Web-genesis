@@ -14,17 +14,24 @@
           <tr style="text-align: center">
             <th scope="col">Nombre y apellido</th>
             <th scope="col">Email</th>
-            <th scope="col">Genero</th>
-            <th scope="col">Fecha y Hora de solicitud</th>
+            <!-- <th scope="col">Genero</th> -->
+            <th scope="col">Cotización</th>
+            <th scope="col">Fecha de solicitud</th>
+            <th scope="col">Tipo de Viaje</th>
             <th scope="col">Detalle</th>
           </tr>
         </thead>
         <tbody style="width: 100%">
-          <tr v-for="(cliente, i) in clientes" :key="i" style="text-align: center">
+          <tr
+            v-for="(cliente, i) in clientes"
+            :key="i"
+            style="text-align: center"
+          >
             <td>{{ cliente.nombreApellido }}</td>
             <td>{{ cliente.email }}</td>
-            <td>{{ cliente.genero }}</td>
-            <td>{{ dateFormat(cliente.DateTransaction) }}</td>
+            <td>{{ cliente.recibirCotizacion }}</td>
+            <td>{{ cliente.DateTransaction }}</td>
+            <td>{{ cliente.tipoViaje }}</td>
             <td>
               <v-btn @click="(ev) => detailUser(cliente.Uid)"
                 ><img src="../../assets/eye.svg" alt=""
@@ -34,7 +41,10 @@
         </tbody>
       </table>
     </div>
-    <div class="d-grid gap-2 col-6 mx-auto button" style="width: 15%; margin-bottom: 10px">
+    <div
+      class="d-grid gap-2 col-6 mx-auto button"
+      style="width: 15%; margin-bottom: 10px"
+    >
       <button
         type="button"
         @click="loadMore"
@@ -49,8 +59,6 @@
 
 <script setup>
 import { ref, onMounted, watch } from "vue";
-import { format } from "date-fns";
-import { es } from "date-fns/locale";
 import { useAsync } from "../../hooks/useAsync";
 import ProgressCircular from "../Modales/ProgressCircular.vue";
 import ErrorModal from "../Modales/ErrorModal.vue";
@@ -64,30 +72,24 @@ const page = ref("1");
 const allDataLoaded = ref(false);
 const showItems = ref(false);
 
-const clientes = ref([
-]);
+const clientes = ref([]);
 
-const dateFormat = (fecha) => {
-  if (fecha) {
-    return format(new Date(fecha), "MMMM d, yyyy h:mm a", { locale: es });
-  }
-  return "";
-};
-
-const respuesta = async (param = {}, page = 1) => {
+const respuesta = async (param = {}, page = 1, concatenateReponse = true) => {
   try {
     let tokenAccess = localStorage.getItem("MyToken");
     let queryParams = {};
 
-    if(page > 1 && clientes.value.length > 0) {
+    if (page > 1 && clientes.value.length > 0) {
       const lastItem = clientes.value[clientes.value.length - 1];
       queryParams.Uid = lastItem.Uid;
       queryParams.DateTransaction = lastItem.DateTransaction;
     }
 
     if (param.nombreApellido) queryParams.nombreApellido = param.nombreApellido;
-    if (param.DateTransaction) queryParams.DateTransaction = param.DateTransaction;
-    if (param.recibirCotizacion) queryParams.recibirCotizacion = param.recibirCotizacion;
+    if (param.DateTransaction)
+      queryParams.DateTransaction = param.DateTransaction;
+    if (param.recibirCotizacion)
+      queryParams.recibirCotizacion = param.recibirCotizacion;
     if (param.tipoViaje) queryParams.tipoViaje = param.tipoViaje;
     if (param.fechaSalida) queryParams.fechaSalida = param.fechaSalida;
     if (param.fechaRegreso) queryParams.fechaRegreso = param.fechaRegreso;
@@ -103,14 +105,17 @@ const respuesta = async (param = {}, page = 1) => {
     const response = await makeRequest("information-request/list", queryParams);
 
     if (result.value && result.value.data && result.value.data.Items) {
-      console.log("Resultado de la consulta: ", result.value.data.Items);
-      clientes.value = [...clientes.value, ...result.value.data.Items];
-      console.log("clientes items", clientes);
+      
+      if (!concatenateReponse) {
+        clientes.value = [...result.value.data.Items];
+      } else {
+        clientes.value = [...clientes.value, ...result.value.data.Items];
+      }
+
       if (clientes.value.length === 0 || result.value.data.Items.length === 0) {
         allDataLoaded.value = true;
       }
     }
-    
   } catch (err) {
     console.error("Oops, algo salió mal! ", err);
     errorData.value = true;
@@ -135,7 +140,7 @@ function closetModal() {
 
 function handleSuccessful(param) {
   if (param) {
-    respuesta(param);
+    respuesta(param, 1, false);
   }
 }
 
