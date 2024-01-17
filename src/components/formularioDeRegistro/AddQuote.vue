@@ -3,90 +3,57 @@
   <ErrorModal v-if="errorData && !loadModule" />
   <RegistConfirm v-if="exictReg && !errorData" />
   <ConditionalOfQuote v-if="showModal" @accept-terms="itemsCloset" />
-  <header class="arrow">
-    <img
-      @click="closetForm"
-      class="arrow__leth"
-      src="../../assets/flecha-left.svg"
-      alt="atras"
-    />
-    <img class="logo" src="../../assets/logo.png" alt="" />
-  </header>
-  <div class="container-add">
-    <p
-      style="
-        font-size: 20px;
-        text-align: center;
-        font-weight: bold;
-        margin-top: 20px;
-      "
-    >
-      Formulario de cotización
-    </p>
+  <main class="container-form">
+    <header class="header-container">
+      <img @click="closetForm" class="arrow__leth" src="../../assets/flecha-left.svg" alt="atras" />
 
-    <form @submit.prevent="createButton" class="row g-3" style="padding: 15px">
-      <p style="font-size: 16px">1. INFORMACIÓN DEL PAJAJERO</p>
-
-      <div class="col-md-6">
-        <label for="inputEmail4" class="form-label">Nombre y apellido</label>
-        <input
-          type="text"
-          class="form-control"
-          v-model="data.nombreApellido"
-          :class="{ 'is-invalid': hasError('Nombre y Apellido') }"
-        />
-        <div v-if="hasError('Nombre y Apellido')" class="invalid-feedback">
-          {{ errorObject.errorMessage }}
-        </div>
+      <div class="container-add">
+        <img class="logo" src="../../assets/logo.png" alt="" />
+        <h2>
+          Formulario de cotización
+        </h2>
       </div>
+    </header>
 
-      <div class="col-md-6">
-        <label for="inputEmail4" class="form-label">Email</label>
-        <input
-          type="text"
-          class="form-control"
-          placeholder="name@example.com"
-          v-model="data.email"
-          :class="{ 'is-invalid': hasError('email') }"
-        />
-        <div v-if="hasError('email')" class="invalid-feedback">
-          {{ errorObject.errorMessage }}
+    <div class="form-regist">
+      <form @submit.prevent="createButton" class="row g-3">
+
+        <div class="col-md-12">
+          <p>1. INFORMACIÓN DEL PASAJERO</p>
         </div>
-      </div>
 
-      <div class="row" style="margin-top: 20px">
         <div class="col-md-6">
-          <label for="inputEmail4" class="form-label">Número telefónico</label>
+          <label for="inputEmail4" class="form-label">Nombre y apellido</label>
+          <input type="text" class="form-control" v-model="data.nombreApellido"
+            :class="{ 'is-invalid': hasError('Nombre y Apellido') }" />
+          <div v-if="hasError('Nombre y Apellido')" class="invalid-feedback">
+            {{ errorObject.errorMessage }}
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <label for="inputEmail4" class="form-label">Email</label>
+          <input type="text" class="form-control" placeholder="name@example.com" v-model="data.email"
+            :class="{ 'is-invalid': hasError('email') }" />
+          <div v-if="hasError('email')" class="invalid-feedback">
+            {{ errorObject.errorMessage }}
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <label for="numeroTelefonico" class="form-label">Número telefónico</label>
           <div class="input-group mb-3">
-            <button
-              class="btn btn-outline-secondary dropdown-toggle"
-              type="button"
-              data-bs-toggle="dropdown"
-              aria-expanded="false"
-            >
+            <button style="color: #000;" class="btn btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown"
+              aria-expanded="false">
               {{ numberVar }}
             </button>
-            <ul
-              class="dropdown-menu"
-              style="overflow-y: scroll; min-width: 20px; max-height: 120px"
-            >
-              <li
-                @click="() => flagSelect(flag.phone)"
-                v-for="(flag, i) in extent"
-                :key="i"
-              >
+            <ul class="dropdown-menu" style="overflow-y: scroll; min-width: 20px; max-height: 120px">
+              <li @click="() => flagSelect(flag.phone)" v-for="(flag, i) in extent" :key="i">
                 <a class="dropdown-item">{{ flag.value }} {{ flag.phone }}</a>
               </li>
             </ul>
-            <input
-              type="text"
-              class="form-control"
-              placeholder="312357030"
-              v-model="data.numeroTelefonico"
-              :class="{ 'is-invalid': hasError('Número telefónico') }"
-              min="1"
-              max="15"
-            />
+            <input type="text" class="form-control" id="numeroTelefonico" placeholder="312357030"
+              v-model="data.numeroTelefonico" :class="{ 'is-invalid': hasError('Número telefónico') }" min="1" max="15" />
             <div v-if="hasError('Número telefónico')" class="invalid-feedback">
               {{ errorObject.errorMessage }}
             </div>
@@ -94,140 +61,81 @@
         </div>
 
         <div class="col-md-6">
-          <label
-            for="inputEmail4"
-            class="form-label"
-            style="display: flex; margin-bottom: 15px"
-            >Genero</label
-          >
-
+          <label for="genero" class="form-label" style="display: flex; margin-bottom: 15px">Género</label>
           <div class="form-check form-check-inline">
-            <input
-              v-model="data.genero"
-              :class="{ 'is-invalid': hasError('genero') }"
-              class="form-check-input"
-              type="radio"
-              name="genero"
-              id="radioFemenino"
-              value="femenino"
-            />
-            <label class="form-check-label" for="inlineCheckbox1"
-              >femenino</label
-            >
+            <input v-model="data.genero" :class="{ 'is-invalid': hasError('genero') }" class="form-check-input"
+              type="radio" name="genero" id="radioFemenino" value="femenino" />
+            <label class="form-check-label" for="radioFemenino">Femenino</label>
           </div>
-
           <div class="form-check form-check-inline">
-            <input
-              v-model="data.genero"
-              :class="{ 'is-invalid': hasError('genero') }"
-              class="form-check-input"
-              type="radio"
-              name="genero"
-              id="radioMasculino"
-              value="masculino"
-            />
-            <label class="form-check-label" for="inlineCheckbox2"
-              >masculino</label
-            >
+            <input v-model="data.genero" :class="{ 'is-invalid': hasError('genero') }" class="form-check-input"
+              type="radio" name="genero" id="radioMasculino" value="masculino" />
+            <label class="form-check-label" for="radioMasculino">Masculino</label>
             <div v-if="hasError('genero')" class="invalid-feedback">
               {{ errorObject.errorMessage }}
             </div>
           </div>
         </div>
-      </div>
 
-      <p style="font-size: 16px">2. INFORMACIÓN DE VIAJE</p>
-
-      <div class="col-md-6">
-        <label for="inputEmail4" class="form-label">Ciudad de origen</label>
-        <input
-          type="text"
-          class="form-control"
-          v-model="data.ciudadOrigen"
-          :class="{ 'is-invalid': hasError('Ciudad de origen') }"
-        />
-        <div v-if="hasError('Ciudad de origen')" class="invalid-feedback">
-          {{ errorObject.errorMessage }}
+        <div class="col-md-12">
+          <p>2. INFORMACIÓN DE VIAJE</p>
         </div>
-      </div>
 
-      <div class="col-md-6">
-        <label for="inputEmail4" class="form-label">Ciudad de destino</label>
-        <input
-          type="text"
-          class="form-control"
-          v-model="data.ciudadDestino"
-          :class="{ 'is-invalid': hasError('Ciudad de destino') }"
-        />
-        <div v-if="hasError('Ciudad de destino')" class="invalid-feedback">
-          {{ errorObject.errorMessage }}
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <label for="tipoViaje" class="form-label"
-          >Selecciona el tipo de viaje</label
-        >
-        <select
-          id="tipoViaje"
-          class="form-select"
-          v-model="data.tipoViaje"
-          :class="{ 'is-invalid': hasError('tipo de Viaje') }"
-        >
-          <option>Viaje de ida</option>
-          <option>Viaje de ida y vuelta</option>
-        </select>
-        <div v-if="hasError('tipo de Viaje')" class="invalid-feedback">
-          {{ errorObject.errorMessage }}
-        </div>
-      </div>
-
-      <div class="col-md-6">
-        <label for="fechaSalida" class="form-label">Fecha de salida</label>
-        <input
-          type="date"
-          class="form-control"
-          id="fechaSalida"
-          v-model="data.fechaSalida"
-          :class="{ 'is-invalid': hasError('fechaSalida') }"
-        />
-        <div v-if="hasError('fechaSalida')" class="invalid-feedback">
-          {{ errorObject.errorMessage }}
-        </div>
-      </div>
-
-      <div
-        id="contenedorFechas"
-        class="row"
-        style="margin-top: 20px"
-        v-if="data.tipoViaje === 'Viaje de ida y vuelta'"
-      >
         <div class="col-md-6">
-          <label for="fechaRegreso" class="form-label">Fecha de regreso</label>
-          <input
-            type="date"
-            class="form-control"
-            id="fechaRegreso"
-            v-model="data.fechaRegreso"
-            :class="{ 'is-invalid': hasError('fechaRegreso') }"
-          />
+          <label for="inputEmail4" class="form-label">Ciudad de origen</label>
+          <input type="text" class="form-control" v-model="data.ciudadOrigen"
+            :class="{ 'is-invalid': hasError('Ciudad de origen') }" />
+          <div v-if="hasError('Ciudad de origen')" class="invalid-feedback">
+            {{ errorObject.errorMessage }}
+          </div>
         </div>
-        <div v-if="hasError('fechaRegreso')" class="invalid-feedback">
-          {{ errorObject.errorMessage }}
-        </div>
-      </div>
 
-      <div class="row" style="margin-top: 20px">
         <div class="col-md-6">
-          <label for="recibirCotizacion" class="form-label"
-            >Donde desea recibir la cotización</label
-          >
-          <select
-            id="recibirCotizacion"
-            class="form-select"
-            v-model="data.recibirCotizacion"
-            :class="{ 'is-invalid': hasError('Recibir cotizacion') }"
-          >
+          <label for="inputEmail4" class="form-label">Ciudad de destino</label>
+          <input type="text" class="form-control" v-model="data.ciudadDestino"
+            :class="{ 'is-invalid': hasError('Ciudad de destino') }" />
+          <div v-if="hasError('Ciudad de destino')" class="invalid-feedback">
+            {{ errorObject.errorMessage }}
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <label for="tipoViaje" class="form-label">Selecciona el tipo de viaje</label>
+          <select id="tipoViaje" class="form-select" v-model="data.tipoViaje"
+            :class="{ 'is-invalid': hasError('tipo de Viaje') }">
+            <option>Viaje de ida</option>
+            <option>Viaje de ida y vuelta</option>
+          </select>
+          <div v-if="hasError('tipo de Viaje')" class="invalid-feedback">
+            {{ errorObject.errorMessage }}
+          </div>
+        </div>
+
+        <div class="col-md-6">
+          <label for="fechaSalida" class="form-label">Fecha de salida</label>
+          <input type="date" class="form-control" id="fechaSalida" v-model="data.fechaSalida"
+            :class="{ 'is-invalid': hasError('fechaSalida') }" />
+          <div v-if="hasError('fechaSalida')" class="invalid-feedback">
+            {{ errorObject.errorMessage }}
+          </div>
+        </div>
+
+        <div id="contenedorFechas" class="row" style="margin-top: 20px" v-if="data.tipoViaje === 'Viaje de ida y vuelta'">
+          <div class="col-md-6">
+            <label for="fechaRegreso" class="form-label">Fecha de regreso</label>
+            <input type="date" class="form-control" id="fechaRegreso" v-model="data.fechaRegreso"
+              :class="{ 'is-invalid': hasError('fechaRegreso') }" />
+          </div>
+          <div v-if="hasError('fechaRegreso')" class="invalid-feedback">
+            {{ errorObject.errorMessage }}
+          </div>
+        </div>
+
+
+        <div class="col-md-6">
+          <label for="recibirCotizacion" class="form-label">Donde desea recibir la cotización</label>
+          <select id="recibirCotizacion" class="form-select" v-model="data.recibirCotizacion"
+            :class="{ 'is-invalid': hasError('Recibir cotizacion') }">
             <option value="WhatsApp">WhatsApp</option>
             <option value="Correo Electronico">Correo Electrónico</option>
           </select>
@@ -236,116 +144,63 @@
           </div>
         </div>
 
-        <div class="col-md-6">
-          <label
-            for="inputEmail4"
-            class="form-label"
-            style="display: flex; margin-bottom: 15px"
-            >Opciones que incluye el viaje:</label
-          >
-
+        <div class="col-md-6 movil-margin">
+          <label for="optionViaje" class="form-label" style="display: flex; margin-bottom: 15px">Opciones que incluye el
+            viaje:</label>
           <div class="form-check form-check-inline">
-            <input
-              v-model="data.optionViaje"
-              :class="{ 'is-invalid': hasError('optionViaje') }"
-              class="form-check-input"
-              type="radio"
-              name="optionViaje"
-              id="radioOption"
-              value="Plan completo (vuelos, hotel y tours)"
-            />
-            <label class="form-check-label" for="inlineCheckbox1"
-              >Plan completo (vuelos, hotel y tours)</label
-            >
+            <input v-model="data.optionViaje" :class="{ 'is-invalid': hasError('optionViaje') }" class="form-check-input"
+              type="radio" name="optionViaje" id="radioOption" value="Plan completo (vuelos, hotel y tours)" />
+            <label class="form-check-label" for="radioOption">Plan completo (vuelos, hotel y tours)</label>
           </div>
-
           <div class="form-check form-check-inline">
-            <input
-              v-model="data.optionViaje"
-              :class="{ 'is-invalid': hasError('optionViaje') }"
-              class="form-check-input"
-              type="radio"
-              name="optionViaje"
-              id="radioTiquete"
-              value="tiquetes"
-            />
-            <label class="form-check-label" for="inlineCheckbox2"
-              >Solo tiquetes</label
-            >
-
+            <input v-model="data.optionViaje" :class="{ 'is-invalid': hasError('optionViaje') }" class="form-check-input"
+              type="radio" name="optionViaje" id="radioTiquete" value="tiquetes" />
+            <label class="form-check-label" for="radioTiquete">Solo tiquetes</label>
             <div v-if="hasError('optionViaje')" class="invalid-feedback">
               {{ errorObject.errorMessage }}
             </div>
           </div>
         </div>
-      </div>
 
-      <div class="col-md-2">
-        <label for="tipoViaje" class="form-label"
-          >Selecciona el número de personas</label
-        >
-        <select
-          id="numeroPersonas"
-          class="form-select"
-          v-model="data.numeroPersonas"
-          :class="{ 'is-invalid': hasError('Número de personas') }"
-        >
-          <option 
-            v-for="({ value }, index) in numberOfPersons" 
-            :key="index"
-            :value="value"
-            >
-            {{ value }}
-          </option>
-          <!-- <option :value="1">1</option>
-          <option :value="2">2</option>
-          <option :value="3">3</option> -->
-        </select>
-        <div v-if="hasError('Número de personas')" class="invalid-feedback">
-          {{ errorObject.errorMessage }}
+        <div class="col-md-6">
+          <label for="numeroPersonas" class="form-label">Selecciona el número de personas</label>
+          <select id="numeroPersonas" class="form-select" v-model="data.numeroPersonas"
+            :class="{ 'is-invalid': hasError('Número de personas') }">
+            <option v-for="({ value }, index) in numberOfPersons" :key="index" :value="value">
+              {{ value }}
+            </option>
+          </select>
+          <div v-if="hasError('Número de personas')" class="invalid-feedback">
+            {{ errorObject.errorMessage }}
+          </div>
         </div>
-      </div>
 
-      <div class="form-floating">
-        <textarea
-          class="form-control"
-          v-model="data.description"
-          id="floatingTextarea2"
-          style="height: 100px"
-        ></textarea>
-        <label for="floatingTextarea2">Peticiones adicionales</label>
-      </div>
-
-      <div class="button__container">
-        <input
-          class="form-check-input"
-          type="checkbox"
-          id="btnModalOpen"
-          v-model="data.conditional"
-          :class="{ 'is-invalid': hasError('Términos y condiciones') }"
-        />
-
-        <label
-          @click="toggleConditional"
-          class="form-check-label"
-          for="btnModalOpen"
-          style="margin-left: 15px"
-        >
-          Leer términos y condiciones
-        </label>
-        <div v-if="hasError('Términos y condiciones')" class="invalid-feedback">
-          {{ errorObject.errorMessage }}
+        <div class="col-md-12">
+          <div class="form-floating">
+            <textarea class="form-control" v-model="data.description" id="floatingTextarea2"
+              style="height: 100px"></textarea>
+            <label for="floatingTextarea2">Peticiones adicionales</label>
+          </div>
         </div>
-      </div>
 
-      <div
-        style="margin-top: 30px; display: grid; justify-items: center"
-        class="col-12"
-      >
-        <button type="submit" class="btn btn-success">Registrar</button>
-      </div>
-    </form>
-  </div>
+        <div class="button__container">
+          <input class="form-check-input" type="checkbox" id="btnModalOpen" v-model="data.conditional"
+            :class="{ 'is-invalid': hasError('Términos y condiciones') }" />
+
+          <label @click="toggleConditional" class="form-check-label" for="btnModalOpen" style="margin-left: 15px">
+            Leer términos y condiciones
+          </label>
+          <div v-if="hasError('Términos y condiciones')" class="invalid-feedback">
+            {{ errorObject.errorMessage }}
+          </div>
+        </div>
+
+        <div style="margin-top: 30px; display: grid; justify-items: center" class="col-12">
+          <button type="submit" class="btn btn-success">Registrar</button>
+        </div>
+      </form>
+    </div>
+  </main>
 </template>
 
 <script setup>
@@ -556,7 +411,7 @@ function createButton() {
 
         errorObject.errorName = final;
         errorObject.errorMessage = final + " " + messageIndix;
-        
+
       } else {
         loadModule.value = true;
         await makeRequest("information-request/create", {}, "POST", {

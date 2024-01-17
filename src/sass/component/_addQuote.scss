@@ -1,41 +1,80 @@
-.arrow {
+.container-form {
     display: grid;
-    grid-template-columns: 30px 3fr;
-    align-items: center;
-    justify-content: center;
-    height: auto;
-    width: 100%;
+    grid-template-columns: 12.5fr 75fr 12.5fr;
+    grid-template-rows: 150px auto;
 
-    .arrow__leth {
-        width: 30px;
-        height: 30px;
-        margin-top: 25px;
+    @include movil {
+        display: grid;
+        grid-template-columns: 10px 1fr 10px;
+    }
 
-        @include movil {
+    .header-container {
+        grid-column: 2;
+        grid-row: 1;
+        display: grid;
+        grid-template-columns: 30px 3fr;
+        align-items: center;
+        justify-content: center;
+        height: auto;
+        width: 100%;
+
+        .arrow__leth {
             width: 25px;
             height: 25px;
-            margin-bottom: 35px;
+            margin-top: 25px;
+
+            @include movil {
+                width: 25px;
+                height: 25px;
+                margin-bottom: 35px;
+            }
         }
+
+        .container-add {
+            display: grid;
+            justify-content: center;
+            align-items: center;
+
+            .logo {
+                width: 105px;
+                height: 95px;
+                object-fit: contain;
+                display: flex;
+                place-self: center;
+                margin-right: 27px;
+                margin-bottom: 15px;
+
+                @include movil {
+                    width: 95px;
+                }
+            }
+
+            h2 {
+                font-size: 20px;
+                text-align: center;
+                font-weight: bold;
+            }
+        }
+
     }
 
-    .logo {
-        width: 105px;
-        height: 95px;
-        object-fit: contain;
-        display: flex;
-        place-self: center;
-        margin-right: 27px;
+    .form-regist {
+        grid-column: 2;
+        grid-row: 2;
+    }
 
+    p {
+        font-size: 16px;
+        font-weight: bolder;
+    }
+
+    .movil-margin {
         @include movil {
-            width: 95px;
+            margin-top: 20px;
         }
     }
 
-    .container-add {
-        display: grid;
-        justify-content: center;
-        align-items: center;
-        margin: 30px;
+    .btn {
+        color: $White;
     }
-
 }
