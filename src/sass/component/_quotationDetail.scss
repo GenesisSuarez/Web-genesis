@@ -10,8 +10,8 @@
 
     .modal__container {
         background-color: #ffffff;
-        width: 455px !important;
-        height: 530px !important;
+        width: 525px !important;
+        height: auto !important;
 
         @include movil {
             width: 330px !important;
@@ -19,7 +19,7 @@
     }
 
     div {
-        width: 410px;
+        width: 505px;
         background-color: $White;
 
         @include movil {
@@ -50,5 +50,7 @@
     button {
         font-family: $fuente-cursiva;
         color: $Black;
+        display: flex;
+        justify-content: center;
     }
 }

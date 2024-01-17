@@ -41,9 +41,8 @@
         <v-card-actions
           style="
             background-color: #ffffff;
-            display: flex;
-            margin-right: 27px;
-            justify-content: end;
+            justify-content: center;
+            margin-left: -20px;
           "
         >
           <v-btn @click="$emit('closetModel')">Cerrar</v-btn>
