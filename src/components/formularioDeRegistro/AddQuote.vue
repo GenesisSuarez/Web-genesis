@@ -419,7 +419,6 @@ function createButton() {
           Category: "1",
           Title: "quote",
           DateTransaction: formatted_date,
-          DateTransaction: "2024-01-17",
           nombreApellido: data.nombreApellido,
           email: data.email,
           numeroTelefonico: data.numeroTelefonico.toString(),
